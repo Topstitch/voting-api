@@ -4,7 +4,7 @@ class Api::V1::CandidatesController < ApplicationController
   end
 
   def show
-    @candidate = Candidate.find(candidate_params)
+    @candidate = Candidate.find(params[:id])
     render json: @candidate
   end
 
@@ -12,7 +12,7 @@ class Api::V1::CandidatesController < ApplicationController
     @candidate = Candidate.create(candidate_params)
     render json: @candidate
   end
-  
+
   private def candidate_params
     params.require(:candidate).permit(:name, :party)
   end

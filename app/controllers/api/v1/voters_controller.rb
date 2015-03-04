@@ -1,7 +1,8 @@
 class Api::V1::VotersController < ApplicationController
+  before_action :restrict_access
 
   def show
-    @voter = Voter.find(voter_params)
+    @voter = Voter.find(params[:id])
     render json: @voter
   end
 
@@ -23,6 +24,12 @@ class Api::V1::VotersController < ApplicationController
   end
 
   private def voter_params
-    params.require(:voter).permit(:name, :party)
+    params.require(:voter).permit(:name, :party, :access_token)
+  end
+
+  private def restrict_access
+    @voter = Voter.find(params[:id])
+    api_key = ApiKey.find_by_access_token(params[:access_token])
+    head :unauthorized unless api_key.voter_id == @voter.id
   end
 end
