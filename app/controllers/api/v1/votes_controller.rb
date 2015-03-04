@@ -1,6 +1,6 @@
 class Api::V1::VotesController < ApplicationController
   def index
-    render json: Vote.all
+    render json: Candidate.all
   end
 
   def show
