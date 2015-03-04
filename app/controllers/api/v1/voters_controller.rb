@@ -9,7 +9,7 @@ class Api::V1::VotersController < ApplicationController
     @voter = Voter.new(voter_params)
 
     if @voter.save
-      render json: @voter
+      render json: Voter.all
     else
       render json: "Invalid parameters"
     end
