@@ -7,9 +7,9 @@ class Api::V1::VotersController < ApplicationController
 
   def create
     @voter = Voter.new(voter_params)
-
     if @voter.save
-      render json: Voter.all
+      ApiKey.create(voter: @voter )
+      render json: @voter.api_key.access_token
     else
       render json: "Invalid parameters"
     end
