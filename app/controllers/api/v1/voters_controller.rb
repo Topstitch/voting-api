@@ -1,7 +1,7 @@
 class Api::V1::VotersController < ApplicationController
 
   def show
-    @voter = Voter.find(params[:id])
+    @voter = Voter.find(voter_params)
     render json: @voter
   end
 
@@ -16,6 +16,10 @@ class Api::V1::VotersController < ApplicationController
   end
 
   def update
+  end
+
+  def index
+    render json: Voter.all
   end
 
   private def voter_params
