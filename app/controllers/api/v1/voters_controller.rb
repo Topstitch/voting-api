@@ -30,6 +30,6 @@ class Api::V1::VotersController < ApplicationController
   private def restrict_access
     @voter = Voter.find(params[:id])
     api_key = ApiKey.find_by_access_token(params[:access_token])
-    head :unauthorized unless api_key.voter_id == @voter.id
+    head :unauthorized if (api_key.nil?) || (api_key.voter_id != @voter.id)
   end
 end
